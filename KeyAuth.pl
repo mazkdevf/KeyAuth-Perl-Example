@@ -186,6 +186,20 @@ sub Getvar {
     }
 }
 
+sub FetchOnline {
+    $hwid = GetHwid();
+
+    my $url = "https://keyauth.win/api/1.1/?type=fetchOnline&name=${name}&ownerid=${ownerid}&sessionid=${sessionid}";
+    $response = Req($url);
+    my $json = decode_json($response->content);
+
+    if ($json->{'success'}) {
+        return $json->{'users'};
+    } else {
+        return "";
+    }
+}
+
 sub Check {
     $hwid = GetHwid();
 
